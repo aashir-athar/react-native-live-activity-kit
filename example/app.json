@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "rn-lak-example",
+    "slug": "rn-lak-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "platforms": ["ios", "android"],
+    "ios": {
+      "bundleIdentifier": "com.aashirathar.rnlakexample",
+      "deploymentTarget": "16.2"
+    },
+    "android": {
+      "package": "com.aashirathar.rnlakexample"
+    },
+    "plugins": [
+      "expo-dev-client",
+      [
+        "react-native-live-activity-kit",
+        {
+          "widgetName": "LiveActivityKitWidget",
+          "deploymentTarget": "16.2",
+          "appGroup": "group.com.aashirathar.rnlakexample",
+          "frequentUpdates": false,
+          "enablePush": true
+        }
+      ]
+    ]
+  }
+}

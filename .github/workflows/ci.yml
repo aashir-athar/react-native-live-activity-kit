@@ -1,0 +1,58 @@
+name: CI
+
+# Verifies the JS / Nitro-spec / config-plugin / server layer: Nitro codegen is
+# valid, TypeScript typechecks (client + server + plugin), the package builds,
+# and the published file set is valid.
+#
+# It does NOT run the native iOS (CocoaPods + ActivityKit/WidgetKit/SwiftUI)
+# compile: that requires Xcode + an Apple toolchain and is validated on a real
+# device (Live Activities and Dynamic Island do not exist on the Simulator's
+# push path). See CONTRIBUTING.md and ZERO-TO-DEPLOY.md.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Verify (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['20', '22']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Nitro codegen runs (specs are valid)
+        run: npm run codegen
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build (bob + config plugin)
+        run: npm run build
+
+      - name: Validate published file set
+        run: npm pack --dry-run

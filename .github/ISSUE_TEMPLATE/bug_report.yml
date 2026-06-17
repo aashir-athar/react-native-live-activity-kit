@@ -1,0 +1,88 @@
+name: Bug report
+description: Report a problem with react-native-live-activity-kit
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a report. **Never paste your APNs auth key (`.p8` contents), Key ID, Team ID, or raw device push tokens** — redact them first. A leaked `.p8` lets anyone push to your app.
+
+        Live Activity bugs are almost always about a *specific layer* — starting in-app, push-to-start, a remote update, the Dynamic Island render, or the server APNs call — so please pick the scenario below precisely.
+  - type: checkboxes
+    attributes:
+      label: Preflight
+      options:
+        - label: I'm on the New Architecture (this package is a Nitro module and does not support the old bridge).
+          required: true
+        - label: I'm testing on a **physical iOS device** with a **dev client** (Live Activities do not work in Expo Go, and push delivery is unreliable on the Simulator).
+          required: true
+        - label: My deployment target is iOS 16.2+ and `NSSupportsLiveActivities` is `true` in the widget extension's Info.plist.
+          required: true
+        - label: I searched existing issues.
+          required: true
+  - type: input
+    attributes:
+      label: react-native-live-activity-kit version
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: React Native version
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Expo SDK version (if using Expo / the config plugin)
+  - type: input
+    attributes:
+      label: react-native-nitro-modules version
+  - type: input
+    attributes:
+      label: Device + iOS version
+      description: e.g. iPhone 15 Pro / iOS 18.1, iPhone 14 / iOS 17.2. The Dynamic Island only exists on iPhone 14 Pro and later; push-to-start needs iOS 17.2+; broadcast channels need iOS 18+.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Which scenario fails?
+      description: The layer where it goes wrong. Pick the most specific one.
+      options:
+        - In-app start (startLiveActivity)
+        - Push-to-start (remote start while app is killed)
+        - Push update (server -> /server -> APNs update)
+        - Dynamic Island render (compact / minimal / expanded)
+        - Lock Screen render
+        - Server APNs send (createLiveActivityPusher / status / reason)
+        - Token collection / rotation (addPushTokenListener / push-to-start token)
+        - Config plugin / prebuild (widget extension not generated correctly)
+        - Other (describe below)
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: APNs environment
+      description: sandbox or production? (TestFlight builds use production; debug dev-client builds use sandbox.)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: Include the failing call (e.g. `startLiveActivity(...)`), any `LiveActivityError.code` on the client, and any `ApnsError.kind` / `status` / `reason` from the `/server` sender.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: Minimal steps or a snippet — the `state` you sent, the options, and (for push) the redacted APNs response. A failing repro from the bundled `example/` app is ideal.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Logs
+      description: "Xcode console output (client) and/or the `ApnsResult` / `ApnsError` from the `/server` send. Redact tokens, Key ID, Team ID, and `.p8` contents."
+      render: shell

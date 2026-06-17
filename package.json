@@ -1,0 +1,137 @@
+{
+  "name": "react-native-live-activity-kit",
+  "version": "0.1.0",
+  "description": "iOS Live Activities & Dynamic Island for React Native & Expo — start/update/end from JS, a built-in data-driven SwiftUI template (Dynamic Island + Lock Screen), on-device push-token collection, and a typed, dependency-free Node APNs sender that shares one content-state schema with the client. New Architecture (Nitro).",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "types": "lib/typescript/commonjs/src/index.d.ts",
+  "react-native": "src/index.ts",
+  "source": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/typescript/module/src/index.d.ts",
+        "default": "./lib/module/index.js"
+      },
+      "require": {
+        "types": "./lib/typescript/commonjs/src/index.d.ts",
+        "default": "./lib/commonjs/index.js"
+      }
+    },
+    "./server": {
+      "import": {
+        "types": "./lib/typescript/module/src/server/index.d.ts",
+        "default": "./lib/module/server/index.js"
+      },
+      "require": {
+        "types": "./lib/typescript/commonjs/src/server/index.d.ts",
+        "default": "./lib/commonjs/server/index.js"
+      }
+    },
+    "./app.plugin.js": "./app.plugin.js"
+  },
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "nitrogen",
+    "plugin/build",
+    "plugin/swift",
+    "app.plugin.js",
+    "react-native-live-activity-kit.podspec",
+    "react-native.config.js",
+    "nitro.json",
+    "README.md",
+    "LICENSE",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "codegen": "nitrogen",
+    "build": "bob build && npm run build:plugin",
+    "build:plugin": "tsc -p plugin/tsconfig.json",
+    "clean": "del-cli lib plugin/build nitrogen/generated",
+    "prepare": "bob build && npm run build:plugin"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "live-activities",
+    "live-activity",
+    "dynamic-island",
+    "activitykit",
+    "widgetkit",
+    "lock-screen",
+    "ios",
+    "apns",
+    "push-to-start",
+    "live-activity-push",
+    "nitro",
+    "nitro-modules",
+    "new-architecture",
+    "order-tracking",
+    "delivery-tracking",
+    "swift"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aashir-athar/react-native-live-activity-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aashir-athar/react-native-live-activity-kit/issues"
+  },
+  "author": "aashir-athar (https://github.com/aashir-athar)",
+  "license": "MIT",
+  "homepage": "https://github.com/aashir-athar/react-native-live-activity-kit#readme",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-nitro-modules": ">=0.29.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    },
+    "react-native-nitro-modules": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@expo/config-plugins": "^56.0.9",
+    "@types/node": "^25.9.3",
+    "@types/react": "~19.2.0",
+    "del-cli": "^7.0.0",
+    "nitrogen": "0.35.9",
+    "react": "19.2.7",
+    "react-native": "0.86.0",
+    "react-native-builder-bob": "^0.43.0",
+    "react-native-nitro-modules": "0.35.9",
+    "typescript": "^6.0.3"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  }
+}

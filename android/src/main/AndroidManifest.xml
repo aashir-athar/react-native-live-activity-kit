@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Live Activities are an iOS-only feature; the Android implementation is a
+         pure no-op shim that touches no system APIs, so no permissions are needed. -->
+
+</manifest>

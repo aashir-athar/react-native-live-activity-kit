@@ -1,0 +1,23 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": ["liveactivitykit"],
+  "ios": {
+    "iosModuleName": "LiveActivityKit"
+  },
+  "android": {
+    "androidNamespace": ["liveactivitykit"],
+    "androidCxxLibName": "LiveActivityKit"
+  },
+  "autolinking": {
+    "LiveActivityKit": {
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridLiveActivityKit"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridLiveActivityKit"
+      }
+    }
+  }
+}
